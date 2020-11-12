@@ -8,17 +8,17 @@ namespace tthk_dragndrop
     public partial class DragAndDropForm : Form
     {
         Rectangle rectangle, circle, square;
-        List<Tuple<Rectangle, Coordinates, bool>> isClicked = new List<Tuple<Rectangle, Coordinates, bool>>(); 
+        Coordinates rectangleXY, circleXY, squareXY;
+        bool rectangleClicked, circleClicked, squareClicked;
 
         public DragAndDropForm()
         {
             rectangle = new Rectangle(10, 10, 200, 100);
             circle = new Rectangle(220, 10, 150, 150);
             square = new Rectangle(380, 10, 150, 150);
-            foreach (var rect in new List<Rectangle>() { rectangle, circle, square })
-            {
-                isClicked.Add(new Tuple<Rectangle, Coordinates, bool> (rect, new Coordinates(0,0), false));
-            }
+            rectangleXY = new Coordinates();
+            circleXY = new Coordinates();
+            squareXY = new Coordinates();
             InitializeComponent();
         }
 
@@ -31,16 +31,26 @@ namespace tthk_dragndrop
 
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
-            if ( (e.X < rectangle.X + rectangle.Width) && (e.X > rectangle.Y) )
+            if ( (e.X < rectangle.X + rectangle.Width) && (e.X > rectangle.Y))
             {
-                if ((e.Y < rectangle.Y + rectangle.Height) && (e.Y > e.Y))
+                if ((e.Y < rectangle.Y + rectangle.Height) && (e.Y > rectangle.Y))
                 {
-                    isClicked[rectangle] = true;
-
-                    rectangle.X = e.X - rectangle.X;
-                    rectangle.Y = e.Y - rectangle.Y;
+                    rectangleClicked = true;
+                    rectangleXY.X = e.X - rectangle.X;
+                    rectangleXY.Y = e.Y - rectangle.Y;
                 }
-            }    
+            }
+            if ((e.X < circle.X + circle.Width) && (e.X > circle.Y))
+            {
+                if ((e.Y < circle.Y + circle.Height) && (e.Y > circle.Y))
+                {
+                    circleClicked = true;
+                    circleXY.X = e.X - circle.X;
+                    circleXY.Y = e.Y - circle.Y;
+                }
+            }
+
+            pictureBox.Invalidate();
         }
     }
 }
