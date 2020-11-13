@@ -37,21 +37,25 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(55, 24);
+            this.pictureBox.Location = new System.Drawing.Point(82, 37);
+            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(691, 283);
+            this.pictureBox.Size = new System.Drawing.Size(1036, 435);
             this.pictureBox.TabIndex = 3;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
             this.pictureBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseDown);
+            this.pictureBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseMove);
+            this.pictureBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_MouseUp);
             // 
             // viewLabel
             // 
             this.viewLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.viewLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.viewLabel.Location = new System.Drawing.Point(55, 332);
+            this.viewLabel.Location = new System.Drawing.Point(82, 511);
+            this.viewLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.viewLabel.Name = "viewLabel";
-            this.viewLabel.Size = new System.Drawing.Size(183, 100);
+            this.viewLabel.Size = new System.Drawing.Size(274, 153);
             this.viewLabel.TabIndex = 4;
             this.viewLabel.Text = "Вид";
             this.viewLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -60,9 +64,10 @@
             // 
             this.formLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.formLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.formLabel.Location = new System.Drawing.Point(309, 332);
+            this.formLabel.Location = new System.Drawing.Point(464, 511);
+            this.formLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.formLabel.Name = "formLabel";
-            this.formLabel.Size = new System.Drawing.Size(183, 100);
+            this.formLabel.Size = new System.Drawing.Size(274, 153);
             this.formLabel.TabIndex = 5;
             this.formLabel.Text = "Форма";
             this.formLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -71,22 +76,24 @@
             // 
             this.infoLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.infoLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.infoLabel.Location = new System.Drawing.Point(564, 332);
+            this.infoLabel.Location = new System.Drawing.Point(846, 511);
+            this.infoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.infoLabel.Name = "infoLabel";
-            this.infoLabel.Size = new System.Drawing.Size(183, 100);
+            this.infoLabel.Size = new System.Drawing.Size(274, 153);
             this.infoLabel.TabIndex = 6;
             this.infoLabel.Text = "Информация";
             this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DragAndDropForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1200, 692);
             this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.formLabel);
             this.Controls.Add(this.viewLabel);
             this.Controls.Add(this.pictureBox);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DragAndDropForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
