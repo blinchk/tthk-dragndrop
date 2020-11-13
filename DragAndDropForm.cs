@@ -12,17 +12,14 @@ namespace tthk_dragndrop
         private Rectangle rectangle, circle, square;
         private Coordinates rectangleCoordinates, circleCoordinates, squareCoordinates;
         private bool rectangleClicked, circleClicked, squareClicked;
-        Rectangle[] rectangleOrder;
         private int x, y, dX, dY;
         private int lastClicked = 0;
-        private PaintEventArgs argsToSave;
 
         public DragAndDropForm()
         {
             rectangle = new Rectangle(10, 10, 200, 100);
             circle = new Rectangle(220, 10, 150, 150);
             square = new Rectangle(380, 10, 150, 150);
-            rectangleOrder = new Rectangle[] { circle, square, rectangle };
             rectangleCoordinates = new Coordinates();
             circleCoordinates = new Coordinates();
             squareCoordinates = new Coordinates();
@@ -34,13 +31,9 @@ namespace tthk_dragndrop
         /// </summary>
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            argsToSave = e;
-            Brush[] brushes = new Brush[] { Brushes.Red, Brushes.Blue, Brushes.Yellow };
-            for (int i = 0; i < 3; i++)
-            {
-                
-                e.Graphics.FillEllipse(brushes[i], rectangleOrder[i]);
-            }
+            e.Graphics.FillEllipse(Brushes.Red, circle);
+            e.Graphics.FillRectangle(Brushes.Blue, square);
+            e.Graphics.FillRectangle(Brushes.Yellow, rectangle);
         }
 
         /// <summary>
@@ -55,14 +48,6 @@ namespace tthk_dragndrop
                     rectangleClicked = true;
                     rectangleCoordinates.X = e.X - rectangle.X;
                     rectangleCoordinates.Y = e.Y - rectangle.Y;
-                    if (rectangleOrder[2] != rectangle)
-                    {
-                        rectangle = new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-                        circle = new Rectangle(circle.X, circle.Y, circle.Width, circle.Height);
-                        square = new Rectangle(square.X, square.Y, square.Width, square.Height);
-                        rectangleOrder = new Rectangle[] { square, circle, rectangle };
-                        pictureBox_Paint(pictureBox, argsToSave);
-                    }
                 }
             }
             if ((e.X < circle.X + circle.Width) && (e.X > circle.Y))
@@ -72,14 +57,6 @@ namespace tthk_dragndrop
                     circleClicked = true;
                     circleCoordinates.X = e.X - circle.X;
                     circleCoordinates.Y = e.Y - circle.Y;
-                    if (rectangleOrder[2] != circle)
-                    {
-                        rectangle = new Rectangle(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-                        circle = new Rectangle(circle.X, circle.Y, circle.Width, circle.Height);
-                        square = new Rectangle(square.X, square.Y, square.Width, square.Height);
-                        rectangleOrder = new Rectangle[] { rectangle, square, circle };
-                        pictureBox_Paint(pictureBox, argsToSave);
-                    }
                 }
             }
             if ((e.X < square.X + square.Width) && (e.X > square.Y))
@@ -89,8 +66,6 @@ namespace tthk_dragndrop
                     squareClicked = true;
                     squareCoordinates.X = e.X - square.X;
                     squareCoordinates.Y = e.Y - square.Y;
-                    rectangleOrder = new Rectangle[] { circle, rectangle, square };
-                    pictureBox_Paint(pictureBox, argsToSave);
                 }
             }
         }
@@ -133,7 +108,7 @@ namespace tthk_dragndrop
                         infoLabel.Text = "Жёлтый прямоугольник";
                     }
                 }
-                
+                CheckForFormChanging(rectangle, rectangleCoordinates);
             }
             else if (circleClicked)
             {
