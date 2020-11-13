@@ -37,10 +37,10 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(82, 37);
+            this.pictureBox.Location = new System.Drawing.Point(0, -2);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1036, 435);
+            this.pictureBox.Size = new System.Drawing.Size(1199, 695);
             this.pictureBox.TabIndex = 3;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
@@ -52,6 +52,7 @@
             // 
             this.viewLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.viewLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.viewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.viewLabel.Location = new System.Drawing.Point(82, 511);
             this.viewLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.viewLabel.Name = "viewLabel";

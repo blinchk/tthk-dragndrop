@@ -74,6 +74,18 @@ namespace tthk_dragndrop
         /// </summary>
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
         {
+            if (rectangleClicked)
+            {
+                lastClicked = 1;
+            }
+            else if (circleClicked)
+            {
+                lastClicked = 2;
+            }
+            else if (squareClicked)
+            {
+                lastClicked = 3;
+            }
             rectangleClicked = false;
             circleClicked = false;
             squareClicked = false;
@@ -91,13 +103,6 @@ namespace tthk_dragndrop
                 if ((viewLabel.Location.X < rectangle.X + rectangle.Width) && (viewLabel.Location.X > rectangle.X))
                 {
                     if ((viewLabel.Location.Y < rectangle.Y + rectangle.Height) && (viewLabel.Location.Y > rectangle.Y))
-                    {
-                        infoLabel.Text = "Жёлтый прямоугольник";
-                    }
-                }
-                else if ((formLabel.Location.X < rectangle.X + rectangle.Width) && (formLabel.Location.X > rectangle.X))
-                {
-                    if ((formLabel.Location.Y < rectangle.Y + rectangle.Height) && (formLabel.Location.Y > rectangle.Y))
                     {
                         infoLabel.Text = "Жёлтый прямоугольник";
                     }
