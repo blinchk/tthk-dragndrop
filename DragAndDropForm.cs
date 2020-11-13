@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Dynamic;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace tthk_dragndrop
 {
     public partial class DragAndDropForm : Form
     {
-        // https://habr.com/ru/post/148015/ - постирония
         private Rectangle rectangle, circle, square;
         private Coordinates rectangleCoordinates, circleCoordinates, squareCoordinates;
         private bool rectangleClicked, circleClicked, squareClicked;
         private int x, y, dX, dY;
+
+        private void infoLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private int lastClicked = 0;
 
         public DragAndDropForm()
@@ -106,6 +112,13 @@ namespace tthk_dragndrop
                     if ((viewLabel.Location.Y < rectangle.Y + rectangle.Height) && (viewLabel.Location.Y > rectangle.Y))
                     {
                         infoLabel.Text = "Жёлтый прямоугольник";
+                    }
+                }
+                if ((scaleUpLabel.Location.X < rectangle.X + rectangle.Width) && (scaleUpLabel.Location.X > rectangle.X))
+                {
+                    if ((scaleUpLabel.Location.Y < rectangle.Y + rectangle.Height) && (scaleUpLabel.Location.Y > rectangle.Y))
+                    {
+                        rectangle = ScaleUp(rectangle);
                     }
                 }
                 CheckForFormChanging(rectangle, rectangleCoordinates);
@@ -210,6 +223,12 @@ namespace tthk_dragndrop
                     }
                 }
             }
+        }
+        private async Rectangle ScaleUp(Rectangle rect)
+        {
+            rect.Width = Convert.ToInt32(rect.Width * 1.1);
+            rect.Height = Convert.ToInt32(rect.Height * 1.1);
+            return rect;
         }
     }
 }

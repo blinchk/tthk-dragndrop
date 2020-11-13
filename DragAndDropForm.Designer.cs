@@ -32,15 +32,16 @@
             this.viewLabel = new System.Windows.Forms.Label();
             this.formLabel = new System.Windows.Forms.Label();
             this.infoLabel = new System.Windows.Forms.Label();
+            this.scaleUpLabel = new System.Windows.Forms.Label();
+            this.scaleDownLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(0, -2);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.pictureBox.Location = new System.Drawing.Point(0, -1);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1199, 695);
+            this.pictureBox.Size = new System.Drawing.Size(799, 452);
             this.pictureBox.TabIndex = 3;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
@@ -53,10 +54,9 @@
             this.viewLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.viewLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.viewLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.viewLabel.Location = new System.Drawing.Point(82, 511);
-            this.viewLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.viewLabel.Location = new System.Drawing.Point(55, 332);
             this.viewLabel.Name = "viewLabel";
-            this.viewLabel.Size = new System.Drawing.Size(274, 153);
+            this.viewLabel.Size = new System.Drawing.Size(183, 100);
             this.viewLabel.TabIndex = 4;
             this.viewLabel.Text = "Вид";
             this.viewLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -65,10 +65,9 @@
             // 
             this.formLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.formLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.formLabel.Location = new System.Drawing.Point(464, 511);
-            this.formLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.formLabel.Location = new System.Drawing.Point(309, 332);
             this.formLabel.Name = "formLabel";
-            this.formLabel.Size = new System.Drawing.Size(274, 153);
+            this.formLabel.Size = new System.Drawing.Size(183, 100);
             this.formLabel.TabIndex = 5;
             this.formLabel.Text = "Форма";
             this.formLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -77,24 +76,47 @@
             // 
             this.infoLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.infoLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.infoLabel.Location = new System.Drawing.Point(846, 511);
-            this.infoLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.infoLabel.Location = new System.Drawing.Point(569, 332);
             this.infoLabel.Name = "infoLabel";
-            this.infoLabel.Size = new System.Drawing.Size(274, 153);
+            this.infoLabel.Size = new System.Drawing.Size(183, 100);
             this.infoLabel.TabIndex = 6;
             this.infoLabel.Text = "Информация";
             this.infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.infoLabel.Click += new System.EventHandler(this.infoLabel_Click);
+            // 
+            // scaleUpLabel
+            // 
+            this.scaleUpLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.scaleUpLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scaleUpLabel.Location = new System.Drawing.Point(569, 203);
+            this.scaleUpLabel.Name = "scaleUpLabel";
+            this.scaleUpLabel.Size = new System.Drawing.Size(183, 100);
+            this.scaleUpLabel.TabIndex = 7;
+            this.scaleUpLabel.Text = "Увеличить";
+            this.scaleUpLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // scaleDownLabel
+            // 
+            this.scaleDownLabel.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.scaleDownLabel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.scaleDownLabel.Location = new System.Drawing.Point(569, 81);
+            this.scaleDownLabel.Name = "scaleDownLabel";
+            this.scaleDownLabel.Size = new System.Drawing.Size(183, 100);
+            this.scaleDownLabel.TabIndex = 8;
+            this.scaleDownLabel.Text = "Уменьшить";
+            this.scaleDownLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DragAndDropForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.scaleDownLabel);
+            this.Controls.Add(this.scaleUpLabel);
             this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.formLabel);
             this.Controls.Add(this.viewLabel);
             this.Controls.Add(this.pictureBox);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "DragAndDropForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
@@ -108,6 +130,8 @@
         private System.Windows.Forms.Label viewLabel;
         private System.Windows.Forms.Label formLabel;
         private System.Windows.Forms.Label infoLabel;
+        private System.Windows.Forms.Label scaleUpLabel;
+        private System.Windows.Forms.Label scaleDownLabel;
     }
 }
 
