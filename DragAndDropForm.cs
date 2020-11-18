@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Dynamic;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace tthk_dragndrop
 {
@@ -13,6 +15,11 @@ namespace tthk_dragndrop
         private Coordinates rectangleCoordinates, circleCoordinates, squareCoordinates;
         private bool rectangleClicked, circleClicked, squareClicked;
         private int x, y, dX, dY;
+        private bool scaled;
+        Timer timer = new Timer()
+        {
+            Interval = 333
+        };
 
         private void infoLabel_Click(object sender, EventArgs e)
         {
@@ -29,6 +36,7 @@ namespace tthk_dragndrop
             rectangleCoordinates = new Coordinates();
             circleCoordinates = new Coordinates();
             squareCoordinates = new Coordinates();
+            timer.Tick += ReturnScaledForScalable;
             InitializeComponent();
         }
 
@@ -121,6 +129,13 @@ namespace tthk_dragndrop
                         rectangle = ScaleUp(rectangle);
                     }
                 }
+                if ((scaleDownLabel.Location.X < rectangle.X + rectangle.Width) && (scaleDownLabel.Location.X > rectangle.X))
+                {
+                    if ((scaleDownLabel.Location.Y < rectangle.Y + rectangle.Height) && (scaleDownLabel.Location.Y > rectangle.Y))
+                    {
+                        rectangle = ScaleDown(rectangle);
+                    }
+                }
                 CheckForFormChanging(rectangle, rectangleCoordinates);
             }
             else if (circleClicked)
@@ -134,6 +149,20 @@ namespace tthk_dragndrop
                         infoLabel.Text = "Красный круг";
                     }
                 }
+                if ((scaleUpLabel.Location.X < circle.X + circle.Width) && (scaleUpLabel.Location.X > circle.X))
+                {
+                    if ((scaleUpLabel.Location.Y < circle.Y + circle.Height) && (scaleUpLabel.Location.Y > circle.Y))
+                    {
+                        circle = ScaleUp(circle);
+                    }
+                }
+                if ((scaleDownLabel.Location.X < circle.X + circle.Width) && (scaleDownLabel.Location.X > circle.X))
+                {
+                    if ((scaleDownLabel.Location.Y < circle.Y + circle.Height) && (scaleDownLabel.Location.Y > circle.Y))
+                    {
+                        circle = ScaleDown(circle);
+                    }
+                }
                 CheckForFormChanging(circle, circleCoordinates);
             }
             else if (squareClicked)
@@ -145,6 +174,20 @@ namespace tthk_dragndrop
                     if ((viewLabel.Location.Y < square.Y + square.Height) && (viewLabel.Location.Y > square.Y))
                     {
                         infoLabel.Text = "Синий квадрат";
+                    }
+                }
+                if ((scaleUpLabel.Location.X < square.X + square.Width) && (scaleUpLabel.Location.X > square.X))
+                {
+                    if ((scaleUpLabel.Location.Y < square.Y + square.Height) && (scaleUpLabel.Location.Y > square.Y))
+                    {
+                        square = ScaleUp(square);
+                    }
+                }
+                if ((scaleDownLabel.Location.X < square.X + square.Width) && (scaleDownLabel.Location.X > square.X))
+                {
+                    if ((scaleDownLabel.Location.Y < square.Y + square.Height) && (scaleDownLabel.Location.Y > square.Y))
+                    {
+                        square = ScaleDown(square);
                     }
                 }
                 CheckForFormChanging(square, squareCoordinates);
@@ -224,10 +267,33 @@ namespace tthk_dragndrop
                 }
             }
         }
-        private async Rectangle ScaleUp(Rectangle rect)
+        private Rectangle ScaleUp(Rectangle rect)
         {
-            rect.Width = Convert.ToInt32(rect.Width * 1.1);
-            rect.Height = Convert.ToInt32(rect.Height * 1.1);
+            if (!scaled)
+            {
+                rect.Width = Convert.ToInt32(rect.Width * 1.05);
+                rect.Height = Convert.ToInt32(rect.Height * 1.05);
+                scaled = true;
+                timer.Start();
+            }
+            return rect;
+        }
+
+        private void ReturnScaledForScalable(object sender, EventArgs e)
+        {
+            scaled = false;
+            timer.Stop();
+        }
+
+        private Rectangle ScaleDown(Rectangle rect)
+        {
+            if (!scaled)
+            {
+                rect.Width = Convert.ToInt32(rect.Width * 0.95);
+                rect.Height = Convert.ToInt32(rect.Height * 0.95);
+                scaled = true;
+                timer.Start();
+            }
             return rect;
         }
     }
