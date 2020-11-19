@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.viewLabel = new System.Windows.Forms.Label();
             this.formLabel = new System.Windows.Forms.Label();
@@ -36,8 +35,6 @@
             this.scaleUpLabel = new System.Windows.Forms.Label();
             this.scaleDownLabel = new System.Windows.Forms.Label();
             this.heightAndWeightLabel = new System.Windows.Forms.Label();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -126,38 +123,22 @@
             this.heightAndWeightLabel.Text = "Ширина и высота";
             this.heightAndWeightLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1383, 24);
-            this.menuStrip1.TabIndex = 10;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // DragAndDropForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1383, 605);
             this.Controls.Add(this.heightAndWeightLabel);
-            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.scaleDownLabel);
             this.Controls.Add(this.scaleUpLabel);
             this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.formLabel);
             this.Controls.Add(this.viewLabel);
             this.Controls.Add(this.pictureBox);
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "DragAndDropForm";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -170,8 +151,6 @@
         private System.Windows.Forms.Label scaleUpLabel;
         private System.Windows.Forms.Label scaleDownLabel;
         private System.Windows.Forms.Label heightAndWeightLabel;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }
 
