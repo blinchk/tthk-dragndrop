@@ -11,24 +11,36 @@ namespace tthk_dragndrop
 {
     public partial class DragAndDropForm : Form
     {
+        private MainMenu menu;
         private Rectangle rectangle, circle, square;
         private Coordinates rectangleCoordinates, circleCoordinates, squareCoordinates;
         private bool rectangleClicked, circleClicked, squareClicked;
         private int x, y, dX, dY;
         private bool scaled;
+        private int fillingOrder;
         Timer timer = new Timer()
         {
-            Interval = 333
+            Interval = 200
         };
-
-        private void infoLabel_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private int lastClicked = 0;
 
         public DragAndDropForm()
+        {
+            PaintObjects();
+            timer.Tick += ReturnScaledForScalable;
+            menu = new MainMenu();
+            menu.MenuItems.Add("Файл");
+            menu.MenuItems[0].MenuItems.Add("Выход", new EventHandler(ExitApplicationClicked));
+            menu.MenuItems.Add("Редактировать");
+            menu.MenuItems[1].MenuItems.Add("Отчистить", new EventHandler(RestartFormClicked));
+            menu.MenuItems.Add("О нас", new EventHandler(AboutUsMenuItemClicked));
+            fillingOrder = 0;
+            Menu = menu;
+            InitializeComponent();
+        }
+
+        private void PaintObjects()
         {
             rectangle = new Rectangle(10, 10, 200, 100);
             circle = new Rectangle(220, 10, 150, 150);
@@ -36,8 +48,22 @@ namespace tthk_dragndrop
             rectangleCoordinates = new Coordinates();
             circleCoordinates = new Coordinates();
             squareCoordinates = new Coordinates();
-            timer.Tick += ReturnScaledForScalable;
-            InitializeComponent();
+        }
+
+        private void RestartFormClicked(object sender, EventArgs e)
+        {
+            PaintObjects();
+            pictureBox.Invalidate();
+        }
+
+        private void ExitApplicationClicked(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void AboutUsMenuItemClicked(object sender, EventArgs e)
+        {
+            MessageBox.Show("Nikolas Laus, TARpv19", "О нас", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
@@ -45,9 +71,25 @@ namespace tthk_dragndrop
         /// </summary>
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.FillEllipse(Brushes.Red, circle);
-            e.Graphics.FillRectangle(Brushes.Blue, square);
-            e.Graphics.FillRectangle(Brushes.Yellow, rectangle);
+            switch (fillingOrder)
+            {
+                case 0:
+                    e.Graphics.FillEllipse(Brushes.Red, circle);
+                    e.Graphics.FillRectangle(Brushes.Blue, square);
+                    e.Graphics.FillRectangle(Brushes.Yellow, rectangle);
+                    break;
+                case 1:
+                    e.Graphics.FillRectangle(Brushes.Blue, square);
+                    e.Graphics.FillRectangle(Brushes.Yellow, rectangle);
+                    e.Graphics.FillEllipse(Brushes.Red, circle);
+                    break;
+                case 2:
+                    e.Graphics.FillRectangle(Brushes.Yellow, rectangle);
+                    e.Graphics.FillEllipse(Brushes.Red, circle);
+                    e.Graphics.FillRectangle(Brushes.Blue, square);
+                    break;
+            }
+            
         }
 
         /// <summary>
@@ -113,6 +155,7 @@ namespace tthk_dragndrop
         {
             if (rectangleClicked) 
             {
+                fillingOrder = 0;
                 rectangle.X = e.X - rectangleCoordinates.X;
                 rectangle.Y = e.Y - rectangleCoordinates.Y;
                 if ((viewLabel.Location.X < rectangle.X + rectangle.Width) && (viewLabel.Location.X > rectangle.X))
@@ -120,6 +163,7 @@ namespace tthk_dragndrop
                     if ((viewLabel.Location.Y < rectangle.Y + rectangle.Height) && (viewLabel.Location.Y > rectangle.Y))
                     {
                         infoLabel.Text = "Жёлтый прямоугольник";
+                        DisplayFigureHeightAndWeight(rectangle);
                     }
                 }
                 if ((scaleUpLabel.Location.X < rectangle.X + rectangle.Width) && (scaleUpLabel.Location.X > rectangle.X))
@@ -140,6 +184,7 @@ namespace tthk_dragndrop
             }
             else if (circleClicked)
             {
+                fillingOrder = 1;
                 circle.X = e.X - circleCoordinates.X;
                 circle.Y = e.Y - circleCoordinates.Y;
                 if ((viewLabel.Location.X < circle.X + circle.Width) && (viewLabel.Location.X > circle.X))
@@ -147,6 +192,7 @@ namespace tthk_dragndrop
                     if ((viewLabel.Location.Y < circle.Y + circle.Height) && (viewLabel.Location.Y > circle.Y))
                     {
                         infoLabel.Text = "Красный круг";
+                        DisplayFigureHeightAndWeight(circle);
                     }
                 }
                 if ((scaleUpLabel.Location.X < circle.X + circle.Width) && (scaleUpLabel.Location.X > circle.X))
@@ -167,6 +213,7 @@ namespace tthk_dragndrop
             }
             else if (squareClicked)
             {
+                fillingOrder = 2;
                 square.X = e.X - squareCoordinates.X;
                 square.Y = e.Y - squareCoordinates.Y;
                 if ((viewLabel.Location.X < square.X + square.Width) && (viewLabel.Location.X > square.X))
@@ -174,6 +221,7 @@ namespace tthk_dragndrop
                     if ((viewLabel.Location.Y < square.Y + square.Height) && (viewLabel.Location.Y > square.Y))
                     {
                         infoLabel.Text = "Синий квадрат";
+                        DisplayFigureHeightAndWeight(square);
                     }
                 }
                 if ((scaleUpLabel.Location.X < square.X + square.Width) && (scaleUpLabel.Location.X > square.X))
@@ -193,6 +241,11 @@ namespace tthk_dragndrop
                 CheckForFormChanging(square, squareCoordinates);
             }
             pictureBox.Invalidate();
+        }
+
+        private void DisplayFigureHeightAndWeight(Rectangle rect)
+        {
+            heightAndWeightLabel.Text = $"Ширина: {rect.Width}, высота: {rect.Height}";
         }
         
         private void CheckForFormChanging(Rectangle rect, Coordinates rectCoordinates)
@@ -278,13 +331,6 @@ namespace tthk_dragndrop
             }
             return rect;
         }
-
-        private void ReturnScaledForScalable(object sender, EventArgs e)
-        {
-            scaled = false;
-            timer.Stop();
-        }
-
         private Rectangle ScaleDown(Rectangle rect)
         {
             if (!scaled)
@@ -296,5 +342,11 @@ namespace tthk_dragndrop
             }
             return rect;
         }
+
+        private void ReturnScaledForScalable(object sender, EventArgs e)
+        {
+            scaled = false;
+            timer.Stop();
+        }    
     }
 }
