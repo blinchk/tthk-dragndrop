@@ -42,7 +42,7 @@
             // 
             this.pictureBox.Location = new System.Drawing.Point(15, 23);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1361, 542);
+            this.pictureBox.Size = new System.Drawing.Size(1348, 544);
             this.pictureBox.TabIndex = 3;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
@@ -115,10 +115,10 @@
             this.heightAndWeightLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.heightAndWeightLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.heightAndWeightLabel.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.heightAndWeightLabel.Location = new System.Drawing.Point(1090, 535);
+            this.heightAndWeightLabel.Location = new System.Drawing.Point(1086, 535);
             this.heightAndWeightLabel.Name = "heightAndWeightLabel";
             this.heightAndWeightLabel.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.heightAndWeightLabel.Size = new System.Drawing.Size(251, 18);
+            this.heightAndWeightLabel.Size = new System.Drawing.Size(251, 0);
             this.heightAndWeightLabel.TabIndex = 11;
             this.heightAndWeightLabel.Text = "Ширина и высота";
             this.heightAndWeightLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -127,7 +127,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1383, 605);
+            this.ClientSize = new System.Drawing.Size(1375, 580);
             this.Controls.Add(this.heightAndWeightLabel);
             this.Controls.Add(this.scaleDownLabel);
             this.Controls.Add(this.scaleUpLabel);
