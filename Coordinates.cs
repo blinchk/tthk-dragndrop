@@ -11,10 +11,10 @@
             y = 0;
         }
 
-        public Coordinates(int _x, int _y)
+        public Coordinates(int x, int y)
         {
-            x = _x;
-            y = _y;
+            this.x = x;
+            this.y = y;
         }
 
         public int X

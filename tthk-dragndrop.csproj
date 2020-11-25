@@ -68,15 +68,6 @@
     <Compile Include="DragAndDropForm.Designer.cs">
       <DependentUpon>DragAndDropForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="KlondikeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="KlondikeForm.Designer.cs">
-      <DependentUpon>KlondikeForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Card.cs" />
-    <Compile Include="Models\CardSuite.cs" />
-    <Compile Include="Models\CardValue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DragAndDropForm.resx">

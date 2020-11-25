@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Dynamic;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
@@ -12,23 +8,31 @@ namespace tthk_dragndrop
     public partial class DragAndDropForm : Form
     {
         private MainMenu menu;
-        private Rectangle rectangle, circle, square;
+        private Rectangle rectangle, circle, square, randomRectangle;
         private Coordinates rectangleCoordinates, circleCoordinates, squareCoordinates;
         private bool rectangleClicked, circleClicked, squareClicked;
-        private int x, y, dX, dY;
+        private int x, y, dX, dY, randomRectangleType;
         private bool scaled;
         private int fillingOrder;
-        Timer timer = new Timer()
+        private Timer timer = new Timer()
         {
             Interval = 200
         };
 
-        private int lastClicked = 0;
+        private Timer gameDragTimer = new Timer()
+        {
+            Interval = 1000
+        };
 
+        private int lastClicked = 0;
+        private int gameCount = 0;
+        private int dragTimerInSeconds = 3;
+        
         public DragAndDropForm()
         {
             PaintObjects();
             timer.Tick += ReturnScaledForScalable;
+            gameDragTimer.Tick += DragTimerTick;
             menu = new MainMenu();
             menu.MenuItems.Add("Файл");
             menu.MenuItems[0].MenuItems.Add("Выход", new EventHandler(ExitApplicationClicked));
@@ -37,7 +41,32 @@ namespace tthk_dragndrop
             menu.MenuItems.Add("О нас", new EventHandler(AboutUsMenuItemClicked));
             fillingOrder = 0;
             Menu = menu;
+            GetRandomFigureToFill();
             InitializeComponent();
+        }
+
+        private void DragTimerTick(object sender, EventArgs e)
+        {
+            if (dragTimerInSeconds == 0)
+            {
+                gameDragTimer.Stop();
+                DialogResult dialogResult = MessageBox.Show("Вы проиграли", "Проигрыш", MessageBoxButtons.RetryCancel);
+                if (dialogResult == DialogResult.Retry)
+                {
+                    PaintObjects();
+                    GetRandomFigureToFill();
+                }
+                else
+                {
+                    randomRectangle.Width = 0;
+                    gameTimerLabel.Visible = false;
+                }
+            }
+            else
+            {
+                dragTimerInSeconds--;
+                gameTimerLabel.Text = $"Осталось {dragTimerInSeconds} секунд.";
+            }
         }
 
         private void PaintObjects()
@@ -71,6 +100,13 @@ namespace tthk_dragndrop
         /// </summary>
         private void pictureBox_Paint(object sender, PaintEventArgs e)
         {
+            if (randomRectangle.Width != 0)
+            {
+                if (randomRectangleType == 0 || randomRectangleType == 2)
+                    e.Graphics.FillRectangle(Brushes.Gray, randomRectangle);
+                else
+                    e.Graphics.FillEllipse(Brushes.Gray, randomRectangle);
+            }
             switch (fillingOrder)
             {
                 case 0:
@@ -180,6 +216,21 @@ namespace tthk_dragndrop
                         rectangle = ScaleDown(rectangle);
                     }
                 }
+                if (randomRectangleType == 0)
+                {
+                    if ((randomRectangle.Location.X < rectangle.X + rectangle.Width) && (randomRectangle.Location.X > rectangle.X))
+                    {
+                        if ((randomRectangle.Location.Y < rectangle.Y + rectangle.Height) && (randomRectangle.Location.Y > rectangle.Y))
+                        {
+                            if (dragTimerInSeconds > 0)
+                            {
+                                gameCount++;
+                                GetRandomFigureToFill();
+                                gameDragTimer.Start();
+                            }
+                        }
+                    }
+                }
                 CheckForFormChanging(rectangle, rectangleCoordinates);
             }
             else if (circleClicked)
@@ -209,6 +260,21 @@ namespace tthk_dragndrop
                         circle = ScaleDown(circle);
                     }
                 }
+                if (randomRectangleType == 1)
+                {
+                    if ((randomRectangle.Location.X < circle.X + circle.Width) && (randomRectangle.Location.X > circle.X))
+                    {
+                        if ((randomRectangle.Location.Y < circle.Y + circle.Height) && (randomRectangle.Location.Y > circle.Y))
+                        {
+                            if (dragTimerInSeconds > 0)
+                            {
+                                gameCount++;
+                                GetRandomFigureToFill();
+                                gameDragTimer.Start();
+                            }
+                        }
+                    }
+                }
                 CheckForFormChanging(circle, circleCoordinates);
             }
             else if (squareClicked)
@@ -236,6 +302,21 @@ namespace tthk_dragndrop
                     if ((scaleDownLabel.Location.Y < square.Y + square.Height) && (scaleDownLabel.Location.Y > square.Y))
                     {
                         square = ScaleDown(square);
+                    }
+                }
+                if (randomRectangleType == 2)
+                {
+                    if ((randomRectangle.Location.X < square.X + square.Width) && (randomRectangle.Location.X > square.X))
+                    {
+                        if ((randomRectangle.Location.Y < square.Y + square.Height) && (randomRectangle.Location.Y > square.Y))
+                        {
+                            if (dragTimerInSeconds > 0)
+                            {
+                                gameCount++;
+                                GetRandomFigureToFill();
+                                gameDragTimer.Start();
+                            }
+                        }
                     }
                 }
                 CheckForFormChanging(square, squareCoordinates);
@@ -347,6 +428,37 @@ namespace tthk_dragndrop
         {
             scaled = false;
             timer.Stop();
-        }    
+        }
+
+        private void GetRandomFigureToFill()
+        {
+            dragTimerInSeconds = 5;
+            gameDragTimer.Start();
+            // Pseudorandom for random figure
+            Random rnd = new Random();
+            Coordinates randomCoordinates = new Coordinates(rnd.Next(50, 700), rnd.Next(50, 300));
+            int byRandomValuedRectangle = rnd.Next(0, 3);
+            randomRectangleType = byRandomValuedRectangle;
+            switch (byRandomValuedRectangle)
+            {
+                case 0:
+                    randomRectangle = new Rectangle(randomCoordinates.X, randomCoordinates.Y, rectangle.Width, rectangle.Height);
+                    randomRectangleType = 0;
+                    break;
+                case 1:
+                    randomRectangle = new Rectangle(randomCoordinates.X, randomCoordinates.Y, circle.Width, circle.Height);
+                    randomRectangleType = 1;
+                    break;
+                case 2:
+                    randomRectangle = new Rectangle(randomCoordinates.X, randomCoordinates.Y, square.Width, circle.Height);
+                    randomRectangleType = 2;
+                    break;
+            }
+
+            if (pictureBox != null)
+            {
+                pictureBox.Invalidate();
+            }
+        }
     }
 }
