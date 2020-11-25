@@ -40,9 +40,9 @@
             // 
             // pictureBox
             // 
-            this.pictureBox.Location = new System.Drawing.Point(15, 23);
+            this.pictureBox.Location = new System.Drawing.Point(27, 23);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(1348, 544);
+            this.pictureBox.Size = new System.Drawing.Size(1336, 544);
             this.pictureBox.TabIndex = 3;
             this.pictureBox.TabStop = false;
             this.pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox_Paint);
