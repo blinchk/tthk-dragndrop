@@ -50,11 +50,12 @@ namespace tthk_dragndrop
             if (dragTimerInSeconds == 0)
             {
                 gameDragTimer.Stop();
-                DialogResult dialogResult = MessageBox.Show("Вы проиграли", "Проигрыш", MessageBoxButtons.RetryCancel);
+                DialogResult dialogResult = MessageBox.Show($"Вы проиграли!\nВаш счёт: {gameCount}.", "Проигрыш", MessageBoxButtons.RetryCancel);
                 if (dialogResult == DialogResult.Retry)
                 {
                     PaintObjects();
                     GetRandomFigureToFill();
+                    gameCount = 0;
                 }
                 else
                 {
@@ -65,7 +66,7 @@ namespace tthk_dragndrop
             else
             {
                 dragTimerInSeconds--;
-                gameTimerLabel.Text = $"Осталось {dragTimerInSeconds} секунд.";
+                gameTimerLabel.Text = $"Осталось {dragTimerInSeconds} секунд. Счёт: {gameCount}.";
             }
         }
 
