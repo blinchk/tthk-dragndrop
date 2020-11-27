@@ -21,12 +21,12 @@ namespace tthk_dragndrop
 
         private Timer gameDragTimer = new Timer()
         {
-            Interval = 1000
+            Interval = 200
         };
 
         private int lastClicked = 0;
         private int gameCount = 0;
-        private int dragTimerInSeconds = 3;
+        private double dragTimerInSeconds = 3;
         
         public DragAndDropForm()
         {
@@ -47,7 +47,7 @@ namespace tthk_dragndrop
 
         private void DragTimerTick(object sender, EventArgs e)
         {
-            if (dragTimerInSeconds == 0)
+            if (dragTimerInSeconds <= 0)
             {
                 gameDragTimer.Stop();
                 DialogResult dialogResult = MessageBox.Show($"Вы проиграли!\nВаш счёт: {gameCount}.", "Проигрыш", MessageBoxButtons.RetryCancel);
@@ -65,7 +65,7 @@ namespace tthk_dragndrop
             }
             else
             {
-                dragTimerInSeconds--;
+                dragTimerInSeconds -= 0.2;
                 gameTimerLabel.Text = $"Осталось {dragTimerInSeconds} секунд. Счёт: {gameCount}.";
             }
         }
@@ -433,7 +433,7 @@ namespace tthk_dragndrop
 
         private void GetRandomFigureToFill()
         {
-            dragTimerInSeconds = 5;
+            dragTimerInSeconds = 5-gameCount*0.2;
             gameDragTimer.Start();
             // Pseudorandom for random figure
             Random rnd = new Random();
